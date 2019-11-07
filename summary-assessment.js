@@ -57,11 +57,27 @@ function each(coll, f) {
   //containing the length of each word in that string.
   //solve it using the most appropriate helper functions(reduce,each,map,filter).
   //wordLengths("hello its me") // [5,3,2]
-  
+
+
   function wordLengths(str) {
-      // TODO: your code here 
-  }
+    // TODO: your code here
+   
+
+   var newArr= str.split(" ");
+      return map(newArr,function(element,i){
+              return (element.length);
+   })
+
+}
+
+/*we creat an array of string (string.split(" ")separate the whole string when it found a space 
+and fill it with the word one by one in the newArr ) and use map to iterat the newArray with each and 
+return a new array cantain the length of each word at 
+the same index of the newArr .
   
+  
+  
+
   //=============================================================================
   /*                                  Q2                                    */
   //=============================================================================
@@ -73,7 +89,21 @@ function each(coll, f) {
   
   function countOccurrences(string, character) {
       // your code is here
-  }
+    
+    var newArr= string.split('');
+    var count=0;
+   
+      each(newArr,function(element,i){
+        if(element===character){
+            
+            ++count ; 
+     }
+     return count  ;     
+}  
+/* we creat an array of string "string.split" and creat a variable "count" 
+   we give a condition the count will increment once it find an occurention and so on 
+   once the i(index) equal the newArr.length the function will return the counter (count)
+  
   
   //=============================================================================
   /*                                  Q3                                    */
@@ -84,8 +114,30 @@ function each(coll, f) {
   // wordsLongerThanThree("Hello Mad World") //["Hello", "World"]
   
   function wordsLongerThanThree(str) {
-      // TODO: your code here 
-  }
+
+  // TODO: your code here
+
+  if(typeof str !== "string")
+    return "enter only a string"
+  if( str === undefined)
+    return "enter a string "
+  if(str.length === 0 )
+    return " you didn't enter nothing "
+
+  var strArr = str.split(' ');
+
+  return filter(strArr , function(element, index){
+    if(element.length> 3)
+      return element;
+  })
+    
+}
+
+/* we chek the type of the input and should be only a string (the 3 if statment) 
+/* we creat an array (strArr ) and fill it with the word of the str(split(' '))  
+/* fill the element wich is an array ("each function") for evry element of strArr larger than 3 .
+
+
   
   //=============================================================================
   /*                                  Q4                                        */
@@ -98,10 +150,21 @@ function each(coll, f) {
   //repeatString('dog', 2); // => 'dog' + 'dog' => 'dogdog' 
   //repeatString('dog', 3); // => 'dog' + 'dog' + 'dog' => 'dogdogdog'
   
-  function repeatString(str, count) { 
-   // TODO: your code here 
-  } 
-   
+  
+   function repeatString(str, count) { 
+ // TODO: your code here
+  
+
+  if(count === 0) {
+    return '' ;
+  }
+  return str + repeatString(str,count-1) ;
+} 
+
+/* we check if the count equal 0 then we don't have anything to repeat it 
+then if we will take store the string and decrimente the counter "count" by 1 until we the count equal to 0 .
+so the counter will stop and return the total of str as result .
+  
   
   //=============================================================================
   /*                                  Q5                                       */
@@ -128,7 +191,36 @@ function each(coll, f) {
   // pizza.eatSlice();
   // pizza.eatSlice();
   
-  // Write your code here .....
+  // Write your code here ..... 
+
+  function makePizza(crust,size,numberOfSlice){
+  var crust = crust;
+  var size = size;
+  var numberOfSlice = numberOfSlice;
+  var ingredients = [];
+  return{
+    addIngredients : function(ingredient){
+       ingredients.push(ingredient); 
+       return ingredients;
+    }, 
+    displayIngredients: function(){
+      return ingredients.join(",");
+    },
+    bakePizza: function(){
+        
+            return "Your "+crust+" "+size+" "+numberOfSlice+" slice pizza is raedy";
+       
+    },
+    eatSlice : function(){
+      return numberOfSlice -= 1;
+    }
+  }
+}
+
+
+  
+
+
   
   //=============================================================================
   /*                                  Q6                                      */
@@ -154,7 +246,31 @@ function each(coll, f) {
   
   // Now, to make sure that you are actually reading, make a comment below this and type: Yes I am
   
+  // Yes I am reading
+
   // Write your code here .....
+
+  function readingList(read, unRead, toRead, currentRead, readBooks,){
+  var list = {};
+    list.read = read;
+    list.unRead = unRead;
+    list.toRead = toRead;
+    list.currentRead = currentRead;
+    list.readBooks = readBooks;
+    list.addBook = add;
+    list.finishCurrentBook = finish;
+  return list;
+}
+var add = function(bookName){
+  this.toRead.push(bookName);
+  this.unRead ++;
+}
+var finish = function(){
+  this.readBooks.push(this.currentRead);
+  this.read ++ ;
+  this.toRead.unshift(this.currentRead);
+  this.unRead --;
+}
   
   //=============================================================================
   /*                                  Q7                                       */
@@ -175,6 +291,33 @@ function each(coll, f) {
   //  safe('money','small') => "watch gold-bar money"
   
   // Write your code here .....
+
+
+  function makeSafe(initialLimit){
+  var slots = initialLimit;
+  var items = [];
+  return function (item, size){
+    if (size === "small" && slots >= 1) {
+      slots = slots - 1;
+      items.push(item);
+    }
+    else if (size === "medium" && slots >= 2) {
+      slots = slots - 2;
+      items.push(item);
+    }
+    else if (size === "big" && slots >= 3) {
+      slots = slots - 3;
+      items.push(item);
+    }
+    
+    else if(slots === 0){
+      return items.join();
+    }
+    else{
+      return "Can't fit";
+    }
+  }
+}
   
   //=============================================================================
   /*                                  Q8                                       */
